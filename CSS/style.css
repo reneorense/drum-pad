@@ -1,1 +1,102 @@
+:root{
+  --line:#232c3d;
+  --txt:#e6edf7;
+  --accent:#38bdf8;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;
+  background:radial-gradient(1200px 800px at 50% -10%, #17223a 0%, #0b0e14 60%);
+  color:var(--txt);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  overflow:hidden;user-select:none;-webkit-user-select:none;
+  touch-action:manipulation;
+}
+.app{
+  height:100dvh;display:flex;flex-direction:column;gap:8px;
+  padding:10px;padding-bottom:max(10px, env(safe-area-inset-bottom));
+}
 
+/* ---------- transport bar ---------- */
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.spacer{flex:1}
+.btn{
+  appearance:none;border:1px solid var(--line);background:#161d2b;color:var(--txt);
+  padding:9px 13px;border-radius:10px;font:inherit;font-size:.82rem;font-weight:600;
+  cursor:pointer;transition:background .15s,border-color .15s,transform .08s,box-shadow .15s;
+  white-space:nowrap;
+}
+.btn:active{transform:scale(.96)}
+.btn.primary{background:#14283d;border-color:#2a5f92;color:#bfe4ff}
+.btn.primary.on{background:#2b7fd4;border-color:#4aa3f0;color:#fff;box-shadow:0 0 16px #2b7fd488}
+.btn.rec{background:#26131a;border-color:#5b2530;color:#ff9a9a}
+.btn.rec.on{background:#e03131;border-color:#ff6b6b;color:#fff;box-shadow:0 0 16px #e0313199}
+.btn.ghost{background:#161d2b}
+.btn.ghost.on{background:#1d3a2e;border-color:#2f7a55;color:#8ff0c0}
+
+.field{display:flex;align-items:center;gap:6px;font-size:.75rem;color:#8697b0;font-weight:600}
+.field input[type=number]{
+  width:62px;background:#161d2b;border:1px solid var(--line);color:var(--txt);
+  border-radius:8px;padding:7px 6px;font:inherit;font-size:.82rem;font-weight:700;text-align:center;
+}
+select{
+  background:#161d2b;border:1px solid var(--line);color:var(--txt);
+  border-radius:8px;padding:8px;font:inherit;font-size:.8rem;font-weight:600;
+}
+
+/* ---------- pads ---------- */
+.pads{
+  flex:1;min-height:0;display:grid;gap:8px;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(3,1fr);
+}
+@media (max-width:560px){
+  .pads{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr)}
+}
+
+.pad{
+  position:relative;border-radius:14px;border:1px solid var(--line);
+  background:linear-gradient(180deg,#1a2130 0%, #121826 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 3px 10px rgba(0,0,0,.35);
+  display:grid;place-items:center;cursor:pointer;overflow:hidden;
+  color:#c7d3e6;font-size:clamp(.62rem,2.6vw,.85rem);font-weight:700;
+  letter-spacing:.02em;text-align:center;
+  /* slow transition = the fade-out */
+  transition:background .45s ease, box-shadow .45s ease,
+             border-color .45s ease, transform .25s ease;
+}
+.pad.hit{
+  /* fast transition = the instant on */
+  transition:background .02s, box-shadow .02s, border-color .02s, transform .02s;
+  background:linear-gradient(180deg, hsl(var(--h) 95% 64%), hsl(var(--h) 90% 46%));
+  border-color:hsl(var(--h) 95% 72%);
+  box-shadow:0 0 28px hsl(var(--h) 95% 58% / .75), inset 0 0 18px rgba(255,255,255,.35);
+  color:#08111d;transform:scale(.96);
+}
+.pad .lbl{pointer-events:none;padding:0 6px;line-height:1.15}
+.pad .key{
+  position:absolute;top:6px;right:8px;font-size:.58rem;font-weight:800;
+  color:#5d6b85;pointer-events:none;
+}
+.pad.hit .key{color:rgba(8,17,29,.55)}
+
+/* sound picker overlay (only visible in assign mode) */
+.pad .snd{
+  position:absolute;inset:0;width:100%;height:100%;
+  border:0;border-radius:inherit;background:#0d1320;color:#dbe6f5;
+  font:inherit;font-size:.7rem;font-weight:600;
+  text-align:center;text-align-last:center;padding:2px;
+  opacity:0;pointer-events:none;transition:opacity .15s;
+}
+body.assign .pad .snd{opacity:1;pointer-events:auto;cursor:pointer}
+body.assign .pad .lbl{opacity:0}
+
+/* ---------- step strip ---------- */
+.strip{display:flex;gap:3px;height:16px}
+.tick{flex:1;border-radius:3px;background:#1a2231;transition:background .08s,box-shadow .08s}
+.tick.beat{background:#232f45}
+.tick.on{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+
+.foot{display:flex;align-items:center;gap:10px}
+.foot input[type=range]{flex:1;accent-color:var(--accent);height:22px}
