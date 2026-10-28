@@ -183,4 +183,4 @@ export function initUI() {
   initControls();
   updateTransportUI();
   requestAnimationFrame(tick);
-      }
+}
