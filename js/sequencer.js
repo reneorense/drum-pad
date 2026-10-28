@@ -171,4 +171,4 @@ function scheduler() {
     state.nextNoteTime += stepDur;
     state.currentStep = (state.currentStep + 1) % state.steps;
   }
-       }
+}
